@@ -1,15 +1,40 @@
+// Item.js
+import { Box, Checkbox, IconButton, Typography } from "@mui/material";
+import { X } from "lucide-react";
+
 export default function Item({ item, onDeleteItem, onToggleItem }) {
   return (
-    <li>
-      <input
-        type="checkbox"
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        gap: 2,
+        width: "100%",
+        p: 2,
+        backgroundColor: "background.paper",
+        borderRadius: 1,
+      }}
+    >
+      <Checkbox
         checked={item.packed}
         onChange={() => onToggleItem(item.id)}
+        color="primary"
       />
-      <span style={item.packed ? { textDecoration: "line-through" } : {}}>
+      <Typography
+        sx={{
+          flexGrow: 1,
+          textDecoration: item.packed ? "line-through" : "none",
+        }}
+      >
         {item.quantity} {item.description}
-      </span>
-      <button onClick={onDeleteItem}>❌</button>
-    </li>
+      </Typography>
+      <IconButton
+        onClick={() => onDeleteItem(item.id)}
+        size="small"
+        color="error"
+      >
+        <X size={16} />
+      </IconButton>
+    </Box>
   );
 }
